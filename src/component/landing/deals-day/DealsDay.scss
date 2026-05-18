@@ -1,0 +1,22 @@
+@import "../../../scss/mixin.scss";
+@import "../../../scss/variables.scss";
+
+
+.wrapper_day_deal{
+    .common_flex{
+        .wrap_txt_time{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+                span{
+                    background-color: $red-color;
+                    color: $white-color;
+                    padding: 6px 12px;
+                    border-radius: 8px;
+                    line-height: 1;
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+        }
+    }
+}

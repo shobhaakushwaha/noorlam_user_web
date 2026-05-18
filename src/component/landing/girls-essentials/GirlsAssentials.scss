@@ -1,0 +1,97 @@
+@import "../../../scss/mixin.scss";
+@import "../../../scss/variables.scss";
+
+.wrapper_girls_essentials {
+    .wrap_flex_category {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // gap: 10px;
+        // overflow-x: auto;
+        // scroll-behavior: smooth;
+        padding: 0px 10px;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .wrap_cards {
+            max-width: 32.7%;
+            width: 100%;
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            height: 600px;
+
+            figure {
+                margin-bottom: 0;
+                position: relative;
+                width: 100%;
+                height: 100%;
+
+                img {
+                    &.category_img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: all 0.4s ease-in-out;
+                        transform: scale(1);
+                    }
+                }
+            }
+
+            p {
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: $black-color;
+                width: 100%;
+                padding: 6px 15px;
+                border-radius: 24px;
+                font-size: 18px;
+                font-weight: 600;
+                max-width: 98%;
+                width: 100%;
+                margin: 0 auto;
+                background-color: $white-color;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                span {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #EF9607;
+
+                    img {
+                        filter: invert(0) brightness(100);
+                        transition: all 0.4s ease-in-out;
+                    }
+                }
+            }
+
+            &:hover {
+                figure {
+                    img {
+                        &.category_img {
+                            transform: scale(1.1);
+                        }
+                    }
+                }
+
+                p {
+                    span {
+                        img {
+                            rotate: 45deg;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

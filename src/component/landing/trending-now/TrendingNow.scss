@@ -1,0 +1,18 @@
+@import "../../../scss/mixin.scss";
+@import "../../../scss/variables.scss";
+
+
+.wrapper_trending_now {
+    .wrapper_deal_card {
+        .common_cards {
+            width: calc(20% - 17px);
+
+            figure {
+                &.common_figure {
+                    height: 360px;
+                }
+            }
+
+        }
+    }
+}

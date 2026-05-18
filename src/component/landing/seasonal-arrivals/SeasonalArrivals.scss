@@ -1,0 +1,37 @@
+@import "../../../scss/mixin.scss";
+@import "../../../scss/variables.scss";
+
+
+.wrapper_seasonal_arrivals {
+    .common_flex{
+        .wrapper_cstm_tabers{
+            ul{
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                li{
+                    border: 1px solid #0000000F;
+                    border-radius: 24px;
+                    padding: 10px 30px;
+                    cursor: pointer;
+                    color: #090909;
+                    font-weight: 600;
+                    transition: all 0.4s ease-in-out;
+
+                    &.active{
+                        background-color: $green-color;
+                        color: $white-color;
+                    }
+                    &:hover{
+                        background-color: $green-color;
+                        color: $white-color;
+                    }
+
+
+                }
+            }
+
+        }
+
+    }
+}

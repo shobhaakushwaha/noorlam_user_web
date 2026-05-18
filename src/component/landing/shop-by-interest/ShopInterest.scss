@@ -1,0 +1,75 @@
+@import "../../../scss/mixin.scss";
+@import "../../../scss/variables.scss";
+
+.wrapper_shop_interest {
+    background-color: #F9F4E5;
+    padding: 40px 0px;
+    border-radius: 24px;
+    margin: 0px 10px;
+
+    .wrap_flex_category {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .wrap_cards {
+            min-width: calc(100% / 7);
+            max-width: calc(100% / 7);
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            height: 270px;
+
+            figure {
+                margin-bottom: 0;
+                position: relative;
+                width: 100%;
+                height: 100%;
+
+                img {
+                    &.category_img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: all 0.4s ease-in-out;
+                        transform: scale(1);
+                    }
+                }
+            }
+
+            p {
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: $black-color;
+                width: 100%;
+                text-align: center;
+                padding: 6px 10px;
+                border-radius: 24px;
+                font-size: 16px;
+                max-width: 90%;
+                width: 100%;
+                margin: 0 auto;
+                background-color: $white-color;
+                box-shadow: 0px 2.11px 5.27px 0px #C9C9C91A, 0px 8.43px 8.43px 0px #C9C9C917, 0px 20.03px 11.6px 0px #C9C9C90D, 0px 34.79px 13.7px 0px #C9C9C903, 0px 54.81px 15.81px 0px #C9C9C900;
+            }
+
+            &:hover {
+                figure {
+                    img {
+                        &.category_img {
+                            transform: scale(1.1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

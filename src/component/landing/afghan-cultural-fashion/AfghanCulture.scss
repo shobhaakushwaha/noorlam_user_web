@@ -1,0 +1,68 @@
+@import "../../../scss/mixin.scss";
+@import "../../../scss/variables.scss";
+
+
+
+.wrapper_afghanculture{
+    background-color: $green-color;
+    box-shadow: 0px 1px 0px 0px #FFFFFF80;
+    border-radius: 40px;
+    margin-inline: 10px;
+    padding: 60px 0px;
+
+    .common_flex{
+        h3{
+            color: $white-color;
+        }
+        a{
+            span{
+                color: $white-color;
+                &::after{
+                    background-color: $white-color;
+                }
+            }
+            img{
+                filter: invert(0) brightness(100);
+            }
+        }
+    }
+    .wrapper_deal_card{
+        .common_cards{
+            .data_txt{
+                p{
+                    color: $white-color;
+                }
+                .wrap_amount{
+                    span{
+                        color: $white-color;
+                    }
+
+                    del{
+                        color:#FFFFFF70;
+                    }
+                }
+                .rating{
+                    .rating_star{
+
+                    }
+                    p{
+                        &.wrap_rating_p{
+                            color: #FFFFFFB2;
+                            span{
+                                &.user{
+                                    color: $white-color;
+
+                                }
+                                &.total_count{
+                                    color: #FFFFFFB2;
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

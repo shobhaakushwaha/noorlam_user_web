@@ -1,0 +1,127 @@
+@import "../../../scss/mixin.scss";
+@import "../../../scss/variables.scss";
+
+$badge_bg: #EAEFEC;
+$text_dark: #06112C;
+$badge_text: #20412E;
+
+.wrapper_verified_seller {
+    background-color: #F8F9FA;
+    border-radius: 40px;
+    padding: 60px 0px;
+    margin: 0px 10px;
+    margin-bottom: 70px;
+    overflow: hidden;
+
+
+    .marquee_container {
+        display: flex;
+        width: 100%;
+        overflow: hidden;
+
+        .marquee_track {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+
+            &:hover {
+                animation-play-state: paused;
+            }
+
+            .verified_card {
+                width: 440px;
+                background-color: $white-color;
+                border-radius: 24px;
+                padding: 25px;
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #EBEBEB;
+
+                .top_section {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 30px;
+                    width: 100%;
+
+                    figure {
+                        width: 90px;
+                        height: 90px;
+                        margin: 0;
+                        border-radius: 12px;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            display: block;
+                        }
+                    }
+
+                    .text_data {
+                        width: calc(100% - 110px);
+                        margin-left: 20px;
+
+                        h4 {
+                            font-size: 20px;
+                            font-weight: 600;
+                            color: $text_dark;
+                            margin-bottom: 8px;
+                            margin-top: 0;
+                        }
+
+                    }
+                }
+
+                .bottom_section {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+
+                    .badges {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+
+                        span {
+                            background-color: $badge_bg;
+                            color: $badge_text;
+                            font-size: 14px;
+                            font-weight: 600;
+                            padding: 10px 18px;
+                            border-radius: 24px;
+                        }
+                    }
+
+                    .icon_arrow {
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 50%;
+                        background-color: $badge_bg;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        img {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(calc(-50% - 10px));
+    }
+}

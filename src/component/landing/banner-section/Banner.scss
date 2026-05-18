@@ -1,0 +1,62 @@
+@import "../../../scss/mixin.scss";
+@import "../../../scss/variables.scss";
+
+
+.wrap_banner {
+  .wrap_banner_image {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0;
+    padding: 0px 10px;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .slick-slider {
+    .slick-dots {
+      text-align: center;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: block;
+      position: absolute;
+      bottom: 40px;
+
+      li {
+        cursor: pointer;
+        margin: 0 5px;
+        padding: 0;
+        display: inline-block;
+        position: relative;
+        width: auto;
+        height: auto;
+        button{
+            opacity: 0.5;
+            background-color: #FFFFFF57;
+            border-radius: 50px;
+            width: 8px;
+            height: 8px;
+            padding: 0;
+            transition: all 0.5s linear;
+            &::before{
+                display: none;
+            }
+
+        }
+        &.slick-active {
+          button {
+            opacity: 1;
+            background-color: #FFFFFF;
+            border-radius: 30px;
+            width: 48px;
+          }
+        }
+      }
+    }
+  }
+}

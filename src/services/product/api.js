@@ -8,7 +8,7 @@ export const getproductList = async (params = {}) => {
   console.log("Encrypted product list request:", reqData);
 
   return api.get("/user/product/list", {
-    decrypt: false,
+    debugResponse: true,
     params: reqData ? { reqData } : params,
   });
 };

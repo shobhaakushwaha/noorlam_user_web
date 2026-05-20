@@ -15,6 +15,8 @@ const CommonCardTwo = ({ item }) => {
                     src={item.image}
                     className="primary_img"
                     alt="care_img"
+                    width={300}
+                    height={300}
                     sizes="100vw"
                     unoptimized
                 />
@@ -22,6 +24,8 @@ const CommonCardTwo = ({ item }) => {
                     src={item.images}
                     className="secondary_img"
                     alt="care_img"
+                    width={300}
+                    height={300}
                     sizes="100vw"
                     unoptimized
                 />

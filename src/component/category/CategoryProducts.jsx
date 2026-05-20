@@ -23,19 +23,15 @@ const getList = (response, keys) => {
 };
 
 const normalizeProduct = (item, index) => {
+  const variantImages = item?.variants?.[0]?.images || [];
   const firstImage =
     item?.image ||
     item?.thumbnail ||
     item?.productImage ||
+    variantImages?.[0] ||
     item?.images?.[0] ||
     item?.productImages?.[0]?.image ||
     item?.productImages?.[0];
-
-  const secondImage =
-    item?.images?.[1] ||
-    item?.productImages?.[1]?.image ||
-    item?.productImages?.[1] ||
-    firstImage;
 
   return {
     id: item?._id || item?.id || index,
@@ -45,7 +41,7 @@ const normalizeProduct = (item, index) => {
     rating: item?.rating || item?.averageRating || 0,
     totalCount: item?.totalCount || item?.reviewCount || item?.reviews || 0,
     image: firstImage,
-    images: secondImage,
+    images: firstImage,
   };
 };
 
@@ -103,14 +99,23 @@ const CategoryProducts = ({ categorySlug }) => {
           activeCategory && categoryId ? { categoryId } : {};
         const productPayload = { page: 1, limit: 10, ...categoryParams };
 
-
         const response = await getproductList(productPayload);
+        console.log("Product list API response:", response);
+
         const productList =
-          response?.data?.products || response?.data?.productList || [];
+          response?.data?.productList ||
+          response?.data?.products ||
+          [];
 
-        setProducts(Array.isArray(productList) ? productList : []);
+        console.log("Product list mapped data:", productList);
 
-       } catch (error) {
+        setProducts(
+          Array.isArray(productList)
+            ? productList.map(normalizeProduct).filter((item) => item.image)
+            : [],
+        );
+
+      } catch (error) {
         console.log("Product API Error:", error);
         setProducts([]);
       } finally {
@@ -200,7 +205,7 @@ const CategoryProducts = ({ categorySlug }) => {
           <section className="category-page__products">
             {loading ? (
               <div className="category-page__empty">Loading products...</div>
-            ) : products.length > 0 ? (
+            ) : products?.length > 0 ? (
               <div className="wrapper_deal_card">
                 {products.map((item) => (
                   <CommonCard item={item} key={item._id || item.id} />

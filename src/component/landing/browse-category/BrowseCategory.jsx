@@ -8,17 +8,12 @@ import { getCategoryList } from "@/services/home/api";
 
 const BrowseCategory = () => {
   const [categoryList, setCategoryList] = useState([]);
-console.log("categoryList", categoryList);
+
   useEffect(() => {
     const fetchCategoryList = async () => {
       try {
         const response = await getCategoryList();
-        const list =
-          response?.data.categoryList ||
-        
-          [];
-                  // console.log("list", list);
-console.log("list", list);
+        const list = response?.data.categoryList || response?.data?.data || [];
 
         setCategoryList(list);
       } catch (error) {
@@ -34,7 +29,7 @@ console.log("list", list);
       <div className="container">
         <div className="common_flex">
           <h3>Browse by Categories</h3>
-          <Link href="">
+          <Link href="/category">
             <span>EXPLORE ALL </span>
             <Image src={arrowupleft} alt="arrow_up" width={20} height={20} />
           </Link>
@@ -42,7 +37,11 @@ console.log("list", list);
       </div>
       <div className="wrap_flex_category">
         {categoryList.map((item) => (
-          <div className="wrap_cards" key={item._id}>
+          <Link
+            className="wrap_cards"
+            href={`/category/${item._id}`}
+            key={item._id}
+          >
             <figure>
               <Image
                 className="category_img"
@@ -55,7 +54,7 @@ console.log("list", list);
               />
             </figure>
             <p>{item.name}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

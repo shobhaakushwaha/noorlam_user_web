@@ -41,12 +41,11 @@ const CommonCard = ({item}) => {
       <div className="data_txt">
         <p>{item?.name}</p>
         <div className="wrap_amount">
-          <span>$ {item?.price}</span>
-                    <span>$ {item?.salePrice}</span>
-
+          <span>$ {item?.salePrice}</span>
+          <del>$ {item?.price}</del>
         </div>
         <RatingStar
-        rating={2.5}
+          rating={item?.averageRating}
           user={item?.averageRating}
           totalcount={item?.reviewCount}
         ></RatingStar>

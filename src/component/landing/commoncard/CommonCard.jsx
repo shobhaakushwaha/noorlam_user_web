@@ -10,7 +10,7 @@ const CommonCard = ({item}) => {
   return (
     <div className="common_cards">
       <figure className="common_figure">
-        <span className="tag">40% OFF</span>
+        <span className="tag">{item?.discountPercentage}% OFF</span>
         <Image
           src={item.image}
           className="primary_img"
@@ -24,8 +24,8 @@ const CommonCard = ({item}) => {
           src={item.images}
           className="secondary_img"
           alt="care_img"
-          width={300}
-          height={300}
+          width={100}
+          height={200}
           sizes="100vw"
           unoptimized
         />
@@ -39,15 +39,16 @@ const CommonCard = ({item}) => {
         </span>
       </figure>
       <div className="data_txt">
-        <p>{item.name}</p>
+        <p>{item?.name}</p>
         <div className="wrap_amount">
-          <span>$ {item.price}</span>
-          <del>$ {item.originalPrice}</del>
+          <span>$ {item?.price}</span>
+                    <span>$ {item?.salePrice}</span>
+
         </div>
         <RatingStar
         rating={2.5}
-          user={item.rating}
-          totalcount={item.totalCount}
+          user={item?.averageRating}
+          totalcount={item?.reviewCount}
         ></RatingStar>
       </div>
     </div>

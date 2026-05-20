@@ -34,12 +34,15 @@ const normalizeProduct = (item, index) => {
     item?.productImages?.[0];
 
   return {
-    id: item?._id || item?.id || index,
+    _id: item?._id || item?.id || String(index),
+    id: item?._id || item?.id || String(index),
+    slug: item?.slug,
     name: item?.name || item?.productName || item?.title || "Product",
-    price: item?.price || item?.salePrice || item?.sellingPrice || 0,
+    price: item?.salePrice || item?.sellingPrice || item?.price || 0,
     originalPrice: item?.originalPrice || item?.mrp || item?.price || 0,
-    rating: item?.rating || item?.averageRating || 0,
-    totalCount: item?.totalCount || item?.reviewCount || item?.reviews || 0,
+    discountPercentage: item?.discountPercentage || 0,
+    averageRating: item?.averageRating || item?.rating || 0,
+    reviewCount: item?.reviewCount || item?.totalCount || item?.reviews || 0,
     image: firstImage,
     images: firstImage,
   };
@@ -208,7 +211,7 @@ const CategoryProducts = ({ categorySlug }) => {
             ) : products?.length > 0 ? (
               <div className="wrapper_deal_card">
                 {products.map((item) => (
-                  <CommonCard item={item} key={item._id || item.id} />
+                  <CommonCard item={item} key={item._id} />
                 ))}
               </div>
             ) : (

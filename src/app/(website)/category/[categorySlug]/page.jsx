@@ -1,9 +1,9 @@
 import CategoryProducts from "@/component/category/CategoryProducts";
 
 const CategoryProductsPage = async ({ params }) => {
-  const { categoryId } = await params;
+  const { categorySlug } = await params;
 
-  return <CategoryProducts categoryId={categoryId} />;
+  return <CategoryProducts categorySlug={categorySlug} />;
 };
 
 export default CategoryProductsPage;

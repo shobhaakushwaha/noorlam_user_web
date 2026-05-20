@@ -6,6 +6,8 @@ import { arrowupleft } from "@/assets/icons";
 import Link from "next/link";
 import { getCategoryList } from "@/services/home/api";
 
+const getCategorySlug = (item) => item?.categorySlug || item?.slug || "";
+
 const BrowseCategory = () => {
   const [categoryList, setCategoryList] = useState([]);
 
@@ -23,7 +25,7 @@ const BrowseCategory = () => {
 
     fetchCategoryList();
   }, []);
- 
+
   return (
     <section className="wrapper-browse-category m-btm">
       <div className="container">
@@ -36,26 +38,32 @@ const BrowseCategory = () => {
         </div>
       </div>
       <div className="wrap_flex_category">
-        {categoryList.map((item) => (
-          <Link
-            className="wrap_cards"
-            href={`/category/${item._id}`}
-            key={item._id}
-          >
-            <figure>
-              <Image
-                className="category_img"
-                src={item.image}
-                alt={item.name}
-                width={260}
-                height={200}
-                sizes="100vw"
-                unoptimized
-              />
-            </figure>
-            <p>{item.name}</p>
-          </Link>
-        ))}
+        {categoryList.map((item) => {
+          const slug = getCategorySlug(item);
+          const key = item._id || item.id || slug;
+          if (!slug) return null;
+
+          return (
+            <Link
+              className="wrap_cards"
+              href={`/category/${encodeURIComponent(slug)}`}
+              key={key}
+            >
+              <figure>
+                <Image
+                  className="category_img"
+                  src={item.image}
+                  alt={item.name}
+                  width={260}
+                  height={200}
+                  sizes="100vw"
+                  unoptimized
+                />
+              </figure>
+              <p>{item.name}</p>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

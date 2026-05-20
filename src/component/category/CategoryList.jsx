@@ -17,6 +17,8 @@ const getCategoryArray = (response) => {
   );
 };
 
+const getCategorySlug = (item) => item?.categorySlug || item?.slug || "";
+
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,6 +28,8 @@ const CategoryList = () => {
       try {
         const response = await getCategoryList();
         const list = getCategoryArray(response);
+
+        console.log(list, "*************************");
         setCategories(Array.isArray(list) ? list : []);
       } catch (error) {
         console.log("Category API Error:", error);
@@ -50,14 +54,15 @@ const CategoryList = () => {
         ) : categories.length ? (
           <div className="category-list-page__grid">
             {categories.map((item) => {
-              const id = item._id || item.id;
-              if (!id) return null;
+              const slug = getCategorySlug(item);
+              const key = item._id || item.id || slug;
+              if (!slug) return null;
 
               return (
                 <Link
                   className="category-list-card"
-                  href={`/category/${id}`}
-                  key={id}
+                  href={`/category/${encodeURIComponent(slug)}`}
+                  key={key}
                 >
                   <figure>
                     <Image

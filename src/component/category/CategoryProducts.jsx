@@ -49,13 +49,24 @@ const normalizeProduct = (item, index) => {
   };
 };
 
-const CategoryProducts = ({ categoryId }) => {
+const getCategorySlug = (item) => item?.categorySlug || item?.slug || "";
+const getCategoryId = (item) => item?._id || item?.id || "";
+
+const CategoryProducts = ({ categorySlug }) => {
   const router = useRouter();
-  const activeCategory = categoryId || "";
+  const activeCategory = categorySlug || "";
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const selectedCategory = useMemo(() => {
+    return categories.find(
+      (item) =>
+        String(getCategorySlug(item)) === String(activeCategory) ||
+        String(getCategoryId(item)) === String(activeCategory),
+    );
+  }, [activeCategory, categories]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -67,6 +78,7 @@ const CategoryProducts = ({ categoryId }) => {
           "data.categories",
           "data",
         ]);
+        console.log("Category list response:", list);
         setCategories(list);
       } catch (error) {
         console.log("Category API Error:", error);
@@ -80,22 +92,25 @@ const CategoryProducts = ({ categoryId }) => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-           console.log("Fetching products with categoryId:", activeCategory);
-        const response = await getproductList(
-          activeCategory
-            ? { page: 1, limit: 10, categoryId: activeCategory }
-            : { page: 1, limit: 10 },
-        );
-        const list = getList(response, [
-          "data.productList",
-          "data.products",
-          "data.data.productList",
-          "data.data.products",
-          "data.data",
-          "data",
-        ]);
-        setProducts(list.map(normalizeProduct).filter((item) => item.image));
-      } catch (error) {
+        if (activeCategory && categories.length === 0) return;
+        if (activeCategory && !selectedCategory) {
+          setProducts([]);
+          return;
+        }
+
+        const categoryId = selectedCategory?._id || selectedCategory?.id;
+        const categoryParams =
+          activeCategory && categoryId ? { categoryId } : {};
+        const productPayload = { page: 1, limit: 10, ...categoryParams };
+
+
+        const response = await getproductList(productPayload);
+        const productList =
+          response?.data?.products || response?.data?.productList || [];
+
+        setProducts(Array.isArray(productList) ? productList : []);
+
+       } catch (error) {
         console.log("Product API Error:", error);
         setProducts([]);
       } finally {
@@ -104,14 +119,14 @@ const CategoryProducts = ({ categoryId }) => {
     };
 
     fetchProducts();
-  }, [activeCategory]);
+  }, [activeCategory, categories.length, selectedCategory]);
 
-  const selectedCategory = useMemo(() => {
-    return categories.find((item) => String(item._id) === String(activeCategory));
-  }, [activeCategory, categories]);
-
-  const handleCategoryChange = (categoryId) => {
-    router.push(categoryId ? `/category/${categoryId}` : "/category");
+  const handleCategoryChange = (nextCategorySlug) => {
+    router.push(
+      nextCategorySlug
+        ? `/category/${encodeURIComponent(nextCategorySlug)}`
+        : "/category",
+    );
     setShowFilters(false);
   };
 
@@ -162,31 +177,37 @@ const CategoryProducts = ({ categoryId }) => {
                 />
                 <span>All categories</span>
               </label>
-              {categories.map((item) => (
-                <label className="filter-option" key={item._id}>
-                  <input
-                    checked={activeCategory === item._id}
-                    name="category"
-                    onChange={() => handleCategoryChange(item.categorySlug)}
-                    type="radio"
-                  />
-                  <span>{item.name}</span>
-                </label>
-              ))}
+              {categories.map((item) => {
+                const slug = getCategorySlug(item);
+                const key = item._id || item.id || slug;
+                if (!slug) return null;
+
+                return (
+                  <label className="filter-option" key={key}>
+                    <input
+                      checked={activeCategory === slug}
+                      name="category"
+                      onChange={() => handleCategoryChange(slug)}
+                      type="radio"
+                    />
+                    <span>{item.name}</span>
+                  </label>
+                );
+              })}
             </div>
           </aside>
 
           <section className="category-page__products">
             {loading ? (
               <div className="category-page__empty">Loading products...</div>
-            ) : products.length ? (
+            ) : products.length > 0 ? (
               <div className="wrapper_deal_card">
                 {products.map((item) => (
-                  <CommonCard item={item} key={item.id} />
+                  <CommonCard item={item} key={item._id || item.id} />
                 ))}
               </div>
             ) : (
-              <div className="category-page__empty">No products found.</div>
+              <div className="category-page__empty">Product not found.</div>
             )}
           </section>
         </div>
